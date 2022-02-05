@@ -16,7 +16,7 @@ public class TeleOP_Comp_2021 extends LinearOpMode  {
   private DcMotor motorRF;
   private DcMotor motorLR;
   private DcMotor motorLF;
-  //private REVTouchSensor Grabberlimit;
+  private REVTouchSensor Grabberlimit;
   private DcMotor LiftMotor;
   private DcMotor Duckmotor;
   private CRServo orgServo;
@@ -32,7 +32,7 @@ public class TeleOP_Comp_2021 extends LinearOpMode  {
     orgServo = hardwareMap.crservo.get("orgServo");
     LiftMotor = hardwareMap.dcMotor.get("LiftMotor");
     Duckmotor = hardwareMap.dcMotor.get("Duckmotor");
-    //Grabberlimit = hardwareMap.touchSensor.get("Grabberlimit");
+    Grabberlimit = hardwareMap.touchSensor.get("Grabberlimit");
        motorLR.setDirection(DcMotor.Direction.REVERSE);
        motorLF.setDirection(DcMotor.Direction.REVERSE);
     
@@ -76,17 +76,7 @@ public class TeleOP_Comp_2021 extends LinearOpMode  {
          
        }
           
-          if(gamepad1.x){
-              orgServo.setPower(0.5);
-          }else{    
-              orgServo.setPower(0);
-          }
-      
-      
-      
-      
-      /*
-          //driving 
+        //driving 
         if (gamepad1.dpad_up) {
           motorRR.setPower(1);
           motorRF.setPower(1);
@@ -132,13 +122,19 @@ public class TeleOP_Comp_2021 extends LinearOpMode  {
       
        
         
-         if (Grabberlimit.getState()) {
-            orgServo.setPower(0);
-        }else{
+        if (!(Grabberlimit.isPressed()) && gamepad1.x){
             orgServo.setPower(0.5);
-         }
-         
-        */ 
+        }
+        else{
+            orgServo.setPower(0);
+        }
+        
+        if (!(Grabberlimit.isPressed()) && gamepad1.x){
+          orgServo.setPower(-0.5);
+        }
+        else{
+          orgServo.setPower(0);
+        }
   
     }
   }
