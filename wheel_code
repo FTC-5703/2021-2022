@@ -1,0 +1,55 @@
+import com.qualcomm.robotcore.eventloop.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name = "TeleOp_Comp_2021", group = "")
+
+public class TeleOP_Comp_2021 extends LinearOpMode  {
+
+//Define Motors
+  private DcMotor motorRR;
+  private DcMotor motorRF;
+  private DcMotor motorLR;
+  private DcMotor motorLF;
+  
+     //Hardware Map
+  @Override
+  public void runOpMode() {
+    motorRR = hardwareMap.dcMotor.get("motorRR");
+    motorRF = hardwareMap.dcMotor.get("motorRF");
+    motorLR = hardwareMap.dcMotor.get("motorLR");
+    motorLF = hardwareMap.dcMotor.get("motorLF");
+    
+  public void moveDriveTrain(){
+      double vertical;
+      double horizontal;
+      double pivot;
+      vertical = -gamepad1.left_stick_y;
+      horizontal = gamepad.left_left_stick_x;
+      pivot = gamepad1.right_stick_x;
+      
+      motorRF.setPower(pivot + (-vertical + horizontal));
+      motorRR.setPower(pivot + (-veritcal + horizontal));
+      motorLF.setPower(pivot + (-veritcal - horizontal));
+      motorRF.setPower(pivot + (-veritcal - horizontal));
+  }
+  
+  @Override 
+    public void init() {
+      motorRR = hardwareMap.dcMotor.get("motorRR");
+      motorRF = hardwareMap.dcMotor.get("motorRF");
+      motorLR = hardwareMap.dcMotor.get("motorLR");
+      motorLF = hardwareMap.dcMotor.get("motorLF");
+      
+      motorRR.setDirection(DcMotorSimple.Direction.REVERSE);
+      motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
+ }
+ 
+ @Override
+  public void init_loop() {
+}
+
+@Override
+  public void loop() {
+}
+
