@@ -1,55 +1,64 @@
-import com.qualcomm.robotcore.eventloop.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.Range;
+import java util.Arraylist;
 
-@TeleOp(name = "TeleOp_Comp_2021", group = "")
+@TeleOp(name= "Wheels", group= "basic")
 
-public class TeleOP_Comp_2021 extends LinearOpMode  {
+public class Wheels extands OpMode{
 
-//Define Motors
-  private DcMotor motorRR;
-  private DcMotor motorRF;
-  private DcMotor motorLR;
-  private DcMotor motorLF;
-  
-     //Hardware Map
-  @Override
-  public void runOpMode() {
-    motorRR = hardwareMap.dcMotor.get("motorRR");
-    motorRF = hardwareMap.dcMotor.get("motorRF");
-    motorLR = hardwareMap.dcMotor.get("motorLR");
-    motorLF = hardwareMap.dcMotor.get("motorLF");
-    
-  public void moveDriveTrain(){
-      double vertical;
-      double horizontal;
-      double pivot;
-      vertical = -gamepad1.left_stick_y;
-      horizontal = gamepad.left_left_stick_x;
-      pivot = gamepad1.right_stick_x;
-      
-      motorRF.setPower(pivot + (-vertical + horizontal));
-      motorRR.setPower(pivot + (-veritcal + horizontal));
-      motorLF.setPower(pivot + (-veritcal - horizontal));
-      motorRF.setPower(pivot + (-veritcal - horizontal));
-  }
-  
-  @Override 
-    public void init() {
-      motorRR = hardwareMap.dcMotor.get("motorRR");
-      motorRF = hardwareMap.dcMotor.get("motorRF");
-      motorLR = hardwareMap.dcMotor.get("motorLR");
-      motorLF = hardwareMap.dcMotor.get("motorLF");
-      
-      motorRR.setDirection(DcMotorSimple.Direction.REVERSE);
-      motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
- }
- 
+//Define robot
+RobotHardware robot = new RobotHardware();
+
+//RUN ONCE ON INIT()
  @Override
-  public void init_loop() {
+   public void init() {
+    robot.init(hardwarMap);
+    telemerty.addData("STATUS, "Initialized");
 }
 
-@Override
-  public void loop() {
+// Loop ON init()
+ @Override
+  Public void init_loop() {
 }
 
+// RUN ONCE ON start ()
+ @Override 
+   public void start() {
+}
+
+// LOOP ON start
+ @Override
+   public void loop () {
+      double G1rightStickY = -gamepad1.right_stick_y;
+      double G1leftStickY = - gamepad1.left_stick_y;
+      boolean G1rightBumper = gamepad1.right_bumper;
+      boolean G1leftBumper = gamepad1.left_bumper;
+}     
+
+ if (G1rightBumper) {
+    robot.motorLR.setPower(-1);
+    robot.motorLF.setPower(1);
+    robot.motorRR.setPower(-1);
+    robot.motorRF.setPower(1);   
+ }
+  else if (G1leftBumper) {
+     robot.motorLR.setPower(1);
+     robot.motorLF.setPower(-1);
+     robot.motorRR.setPower(1);
+     robot.motorRF.setPower(-1); 
+ }
+    else{
+       robot.motorLR.setPower(G1leftBumper);
+       robot.motorLF.setPower(G1leftBumper);
+       robot.motorRR.setPower(-G1rightBumper);
+       robot.motorRF.setPower(-G1rightBumper);
+}     
+ 
+ //RUN ONCE ON stop()
+  @Override
+     public void stop () {
+ }     
+      
+}      
+           
