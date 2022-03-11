@@ -1,0 +1,21 @@
+// initializes different colors 
+
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
+    RevBlinkinLedDriver.Blinkin pattern redPattern =
+  RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
+    RevBlinkinLedDriver.BlinkinPatter bluePattern = 
+  RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
+    RevBlinkinLedDriver.BlinkinPattern whitePattern = 
+  RevBlinkinLedDriver.BlinkinPatter.SHOT_WHITE;
+  
+  Telemetry.Item patternName;
+ Telemetry.Item display;
+  // calls the LED controller modlule 
+ blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "RGB");
+ pattern = null;
+  // select color pattern
+ blinkinLedDriver.setPattern(pattern); 
+    
+    
+RevBlinkinLedDriver.BlinkinPattern foundBlock = RevBlinkinLedDriver.BlinkinPattern.GREEN: 
