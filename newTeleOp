@@ -1,0 +1,87 @@
+//Import Packages
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name = "TeleOp_Comp_2022", group = "")
+public class TeleOP_Comp_2022 extends LinearOpMode  {
+
+   //Define Motors and Touchsenor
+  private DcMotor motorRR;
+  private DcMotor motorRF;
+  private DcMotor motorLR;
+  private DcMotor motorLF;
+  private DcMotor Duckmotor;
+  
+     //Hardware Map
+  @Override
+  public void runOpMode() {
+    motorRR = hardwareMap.dcMotor.get("motorRR");
+    motorRF = hardwareMap.dcMotor.get("motorRF");
+    motorLR = hardwareMap.dcMotor.get("motorLR");
+    motorLF = hardwareMap.dcMotor.get("motorLF");
+    orgServo = hardwareMap.crservo.get("orgServo");
+    LiftMotor = hardwareMap.dcMotor.get("LiftMotor");
+    Duckmotor = hardwareMap.dcMotor.get("Duckmotor");
+       motorLR.setDirection(DcMotor.Direction.REVERSE);
+       motorLF.setDirection(DcMotor.Direction.REVERSE);
+
+}
+    
+    waitForStart();
+    if (opModeIsActive()) {
+      while (opModeIsActive()) {
+      
+@Override
+  public void loop(){
+    
+  //displays telemerty data
+    telemetry.addData("motorLF:", motorLF.getPower());
+    telemetry.addData("motorRF:", motorRF.getPower());
+    telemetry.addData("motorLR:", motorLR.getPower());
+    telemetry.addData("motorRR:", motorRR.getPower());
+    telemetry.updata();
+    
+   // this is the standard driving function, that utilizes 0%-80% motor power
+   
+   if (gamepad1.left_stick_x!=0||gamepad1.left_stick_y!=0||gamepad1.rigth_stick_x!=0||gamepad1.right_y!=0){
+   
+   if (gamepad1.left_stick_y!=){
+       motorLF.setPower(gamepad1.left_stick_y*power);
+       motorRF.setPower(gamepad1.left_stick_y*power);
+       motorLR.setPower(gamepad1.left_stick_y*power);
+       motorRR.setPower(gamepad1.left_stick_y*power);
+}
+
+  if (gamepad1.left_stick_x!=0){
+      motorLF.setPower(-gamepad1.left_stick_x*power);
+      motorRF.setPower(gamepad1.left_stick_x*power);
+      motorLR.setPower(gamepad1.left_stick_x*power);
+      motorRR.setPower(-gamepad1.left_stick_x*power);
+}      
+      
+// these are the contorls for "spin" mode, it uses the right stick instead of the left stick 
+  if (gamepad1.right_stick_x!=0){
+      motorLF.serPower(-gampad1.left_stick_x*power);
+      motorRF.serPower(gampad1.left_stick_x*power); 
+      motorLR.serPower(gampad1.left_stick_x*power);
+      motorRR.serPower(-gampad1.left_stick_x*power);
+}
+
+ }else{
+//turns off all motors 
+      motorLF.setPower(0);
+      motorRF.setPower(0);
+      motorLR.setPower(0);
+      motorRR.setPower(0);
+  }
+}
+  
+  @override
+    public void stop(){
+   } 
+}      
+  
