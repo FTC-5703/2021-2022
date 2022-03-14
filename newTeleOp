@@ -77,7 +77,16 @@ public class TeleOP_Comp_2022 extends LinearOpMode  {
       motorRR.setPower(0);
   }
 }
-  
+
+
+if (gamepad1.right_trigger){
+   Duckmotor.setPower(.7);
+}
+
+if (gamepad1.left_trigger){
+   Duckmotor.setPower(.8);
+
+
   @override
     public void stop(){
    } 
