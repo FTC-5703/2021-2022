@@ -2,7 +2,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -24,7 +23,6 @@ public class TeleOP_Comp_2022 extends LinearOpMode  {
     motorLR = hardwareMap.dcMotor.get("motorLR");
     motorLF = hardwareMap.dcMotor.get("motorLF");
     orgServo = hardwareMap.crservo.get("orgServo");
-    LiftMotor = hardwareMap.dcMotor.get("LiftMotor");
     Duckmotor = hardwareMap.dcMotor.get("Duckmotor");
        motorLR.setDirection(DcMotor.Direction.REVERSE);
        motorLF.setDirection(DcMotor.Direction.REVERSE);
