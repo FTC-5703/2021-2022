@@ -1,64 +1,67 @@
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
-import java util.Arraylist;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpmode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 
-@TeleOp(name= "Wheels", group= "basic")
+@TeleOp(name = "wheels", group= "")
 
-public class Wheels extands OpMode{
+public class Wheels extends LinearOpMode {
 
-//Define robot
-RobotHardware robot = new RobotHardware();
+private DcMotor motorRR;
+private DcMotor motorRF;
+private DcMotor motorLR;
+private DcMotor motorLF;
+private DcMotor Duckmotor;
+private CRServo orgServo;
 
-//RUN ONCE ON INIT()
+private final double power = .7;
+
+// RUN ONCE ON INIT()
+
  @Override
-   public void init() {
-    robot.init(hardwarMap);
-    telemerty.addData("STATUS, "Initialized");
-}
-
-// Loop ON init()
- @Override
-  Public void init_loop() {
-}
-
-// RUN ONCE ON start ()
- @Override 
-   public void start() {
-}
-
-// LOOP ON start
- @Override
-   public void loop () {
-      double G1rightStickY = -gamepad1.right_stick_y;
-      double G1leftStickY = - gamepad1.left_stick_y;
-      boolean G1rightBumper = gamepad1.right_bumper;
-      boolean G1leftBumper = gamepad1.left_bumper;
-}     
-
- if (G1rightBumper) {
-    robot.motorLR.setPower(-1);
-    robot.motorLF.setPower(1);
-    robot.motorRR.setPower(-1);
-    robot.motorRF.setPower(1);   
- }
-  else if (G1leftBumper) {
-     robot.motorLR.setPower(1);
-     robot.motorLF.setPower(-1);
-     robot.motorRR.setPower(1);
-     robot.motorRF.setPower(-1); 
- }
-    else{
-       robot.motorLR.setPower(G1leftBumper);
-       robot.motorLF.setPower(G1leftBumper);
-       robot.motorRR.setPower(-G1rightBumper);
-       robot.motorRF.setPower(-G1rightBumper);
-}     
- 
- //RUN ONCE ON stop()
-  @Override
-     public void stop () {
- }     
+   public void runOpMode() {
+    motorRR = hardwareMap.dcMotor.get("motorRR");
+    motorRF = hardwareMap.dcMotor.get("motorRF");
+    motorLR = hardwareMap.dcMotor.get("motorLR");
+    Duckmotor = hardwareMap.dcMotor.get("Duckmotor");
+    
+     waitForStart();
+      while (opModeIsActive()) {
       
-}      
-           
+      double y = -gamepad1.left_stick_y; //Remember, this is reversed!
+      double x =  gamepad1.left_stick_x * 1.1; // Counteract imperfect strafting 
+      double rx = gamepad1.right_stick_x;
+      
+// Denominator is the largest motor power (abosolut value or 1
+//This ensures all the powers maitain the same ratio, but only when
+// at least one is out of range [-1,1]
+
+    double denominator = Math.max(Mathabs(y) + Math.abs(x) + Math.abs(x) + Math.abs(rx), 1);
+    double frontLeftPower = (y + x + rx) / denominator;
+    double backLeftPower = (y - x + rx) / denomintor;
+    double frontRightPower = (y -x -rx) / denominator;
+    double backRightPower = (y + x _rx) / denominator;
+   
+ motorLF.setPower(frontLeftPower):
+ motorLR.setPower(backLeftPower);
+ motorRF.setPower(frontRightPower);
+ motorRR.setPower(backRightPower);
+ 
+      if(gamepad1.right_trigger!=0){
+         motorLF.setPower(-power*1.5);
+         motorRF.setPower(-power*1.5);
+         motorLR.setPower(power*1.5);
+         motorRR.setPower(power);
+       }
+
+      
+      
+      
+      
+      
+      
+      
+      
